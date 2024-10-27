@@ -17,6 +17,13 @@ export const containerStyle = css`
 	background-color: ${colors.background};
 `;
 
+export const headerStyle = css`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+`;
+
 export const titleStyle = css`
 	font-size: 24px;
 	font-weight: bold;
@@ -135,4 +142,11 @@ export const paginationIcon = css`
 	width: 16px;
 	height: 16px;
 	color: ${colors.primary};
+`;
+
+export const cartIconStyle = css`
+	color: ${colors.secondary};
+	font-size: 24px;
+	margin: 0 10px;
+	cursor: pointer;
 `;
