@@ -31,9 +31,11 @@ const ProductPage: React.FC = () => {
 		[key: string]: string;
 	}>({});
 	const [currentPage, setCurrentPage] = useState(1);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchImages = async () => {
+			setLoading(true);
 			try {
 				const [chairResponse, tableResponse, bedResponse] = await Promise.all([
 					fetch(`https://api.unsplash.com/photos/random?query=chair&count=15`, {
@@ -76,6 +78,8 @@ const ProductPage: React.FC = () => {
 			} catch (error) {
 				console.error("Error fetching images:", error);
 				setProductData([]);
+			} finally {
+				setLoading(false);
 			}
 		};
 		fetchImages();
@@ -99,7 +103,9 @@ const ProductPage: React.FC = () => {
 		<div className={containerStyle}>
 			<h1 className={titleStyle}>Product Gallery</h1>
 			<div className={productContainer}>
-				{currentProducts.length > 0 ? (
+				{loading ? (
+					<Spinner size="3" />
+				) : currentProducts.length > 0 ? (
 					currentProducts.map((product) => (
 						<div key={product.id} className={productCardStyle}>
 							<ProductCarousel images={product.urls} />
@@ -116,7 +122,7 @@ const ProductPage: React.FC = () => {
 						</div>
 					))
 				) : (
-					<Spinner size="3" />
+					<p>No products found.</p>
 				)}
 			</div>
 			<Pagination

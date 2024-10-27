@@ -1,14 +1,27 @@
 import { css } from "@emotion/css";
 
+const colors = {
+	primary: "#1e38b2",
+	secondary: "#fe5805",
+	background: "#eae6df",
+	text: "#333",
+	lightText: "#555",
+	border: "#ddd",
+	hoverBackground: "#f0f0f0",
+	buttonHover: "#005bb5",
+};
+
 export const containerStyle = css`
 	padding: 20px;
 	font-family: Arial, sans-serif;
+	background-color: ${colors.background};
 `;
 
 export const titleStyle = css`
 	font-size: 24px;
 	font-weight: bold;
 	margin-bottom: 20px;
+	color: ${colors.primary};
 `;
 
 export const productContainer = css`
@@ -20,7 +33,7 @@ export const productContainer = css`
 export const productCardStyle = css`
 	flex: 1 1 calc(30% - 20px);
 	margin: 10px;
-	border: 1px solid #ddd;
+	border: 1px solid ${colors.border};
 	padding: 15px;
 	border-radius: 5px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -57,11 +70,12 @@ export const productNameStyle = css`
 	font-size: 20px;
 	font-weight: 600;
 	margin: 10px 0;
+	color: ${colors.primary};
 `;
 
 export const productDescriptionStyle = css`
 	font-size: 14px;
-	color: #555;
+	color: ${colors.lightText};
 `;
 
 export const selectContainerStyle = css`
@@ -73,17 +87,17 @@ export const selectContainerStyle = css`
 
 export const selectItem = css`
 	padding: 10px;
-	color: #333;
+	color: ${colors.text};
 	cursor: pointer;
 	flex: 1;
 	&:hover {
-		background-color: #f0f0f0;
+		background-color: ${colors.hoverBackground};
 	}
 `;
 
 export const addToCartButtonStyle = css`
 	padding: 10px 20px;
-	background-color: #0070f3;
+	background-color: ${colors.primary};
 	color: #fff;
 	border: none;
 	cursor: pointer;
@@ -91,7 +105,7 @@ export const addToCartButtonStyle = css`
 	transition: background-color 0.3s;
 
 	&:hover {
-		background-color: #005bb5;
+		background-color: ${colors.buttonHover};
 	}
 `;
 
@@ -104,8 +118,21 @@ export const paginationContainer = css`
 
 export const paginationButton = css`
 	margin: 0 10px;
+	border: none;
+	background-color: ${colors.background};
+	color: ${colors.primary};
+	padding: 10px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: ${colors.hoverBackground};
+	}
 `;
 
-export const paginationNumber = css`
-	margin: 0 10px;
+export const paginationIcon = css`
+	width: 16px;
+	height: 16px;
+	color: ${colors.primary};
 `;
