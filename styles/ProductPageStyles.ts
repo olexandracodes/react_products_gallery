@@ -36,7 +36,20 @@ export const productCardStyle = css`
 
 export const productImageStyle = css`
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+`;
+
+export const carouselWrapperStyle = css`
+    max-width: 300px; 
+    margin: 0 auto; 
+`;
+
+export const imageStyle = css`
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
     border-radius: 5px;
 `;
 
