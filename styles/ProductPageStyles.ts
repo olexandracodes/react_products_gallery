@@ -52,17 +52,17 @@ export const productDescriptionStyle = css`
 `;
 
 export const selectContainerStyle = css`
-    margin: 10px 0;
+    width: 120px;
     display: flex;
-    align-items: center;
-    position: relative;
+    justify-content: space-between;
+    margin: 10px 0;
 `;
 
 export const selectItem = css`
     padding: 10px;
     color: #333;
     cursor: pointer;
-
+    flex: 1;
     &:hover {
         background-color: #f0f0f0;
     }

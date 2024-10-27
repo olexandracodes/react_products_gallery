@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DropdownMenu, Button } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import {
 	containerStyle,
 	titleStyle,
@@ -8,16 +8,22 @@ import {
 	productImageStyle,
 	productNameStyle,
 	productDescriptionStyle,
-	selectContainerStyle,
-	selectItem,
 	addToCartButtonStyle,
 } from "../styles/ProductPageStyles";
+import CustomDropdown from "../components/CustomDropdown";
 
 interface Product {
 	id: string;
 	alt_description: string;
 	urls: { small: string };
 }
+
+export const dropdownOptions = [
+    { value: "Sella", label: "Chair" },
+    { value: "Mensa", label: "Table" },
+    { value: "Lectus", label: "Bed" },
+    { value: "Armarium", label: "Cabinet" },
+];
 
 const ProductPage: React.FC = () => {
 	const [productData, setProductData] = useState<Product[]>([]);
@@ -78,40 +84,11 @@ const ProductPage: React.FC = () => {
 								Beautiful furniture piece perfect for modern design.
 							</p>
 
-							<DropdownMenu.Root>
-								<DropdownMenu.Trigger>
-									<Button variant="soft" className={selectContainerStyle}>
-										{selectedOptions[product.id] || "Select"}
-										<DropdownMenu.TriggerIcon />
-									</Button>
-								</DropdownMenu.Trigger>
-								<DropdownMenu.Content>
-									<DropdownMenu.Item
-										onClick={() => handleDropdownChange("Sella", product.id)}
-										className={selectItem}
-									>
-										Sella (Chair)
-									</DropdownMenu.Item>
-									<DropdownMenu.Item
-										onClick={() => handleDropdownChange("Mensa", product.id)}
-										className={selectItem}
-									>
-										Mensa (Table)
-									</DropdownMenu.Item>
-									<DropdownMenu.Item
-										onClick={() => handleDropdownChange("Lectus", product.id)}
-										className={selectItem}
-									>
-										Lectus (Bed)
-									</DropdownMenu.Item>
-									<DropdownMenu.Item
-										onClick={() => handleDropdownChange("Armarium", product.id)}
-										className={selectItem}
-									>
-										Armarium (Cabinet)
-									</DropdownMenu.Item>
-								</DropdownMenu.Content>
-							</DropdownMenu.Root>
+							<CustomDropdown
+								productId={product.id}
+								selectedOption={selectedOptions[product.id]}
+								onOptionChange={handleDropdownChange}
+							/>
 
 							<Button className={addToCartButtonStyle}>Add to Cart</Button>
 						</div>
