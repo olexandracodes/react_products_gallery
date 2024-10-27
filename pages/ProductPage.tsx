@@ -8,6 +8,7 @@ import {
 } from "../styles/ProductPageStyles";
 import ProductCarousel from "../components/ProductCarousel";
 import CustomDropdown from "../components/CustomDropdown";
+import Pagination from "../components/Pagination";
 
 interface Product {
 	id: string;
@@ -22,39 +23,40 @@ export const dropdownOptions = [
 	{ value: "Armarium", label: "Cabinet" },
 ];
 
+const PRODUCTS_PER_PAGE = 12;
+
 const ProductPage: React.FC = () => {
 	const [productData, setProductData] = useState<Product[]>([]);
 	const [selectedOptions, setSelectedOptions] = useState<{
 		[key: string]: string;
 	}>({});
+	const [currentPage, setCurrentPage] = useState(1);
 
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				const chairResponse = await fetch(
-					`https://api.unsplash.com/photos/random?query=chair&count=15`,
-					{
+				const [chairResponse, tableResponse, bedResponse] = await Promise.all([
+					fetch(`https://api.unsplash.com/photos/random?query=chair&count=15`, {
 						headers: {
 							Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
 						},
-					}
-				);
-				const tableResponse = await fetch(
-					`https://api.unsplash.com/photos/random?query=table&count=15`,
-					{
+					}),
+					fetch(`https://api.unsplash.com/photos/random?query=table&count=15`, {
 						headers: {
 							Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
 						},
-					}
-				);
-				const bedResponse = await fetch(
-					`https://api.unsplash.com/photos/random?query=bed&count=15`,
-					{
+					}),
+					fetch(`https://api.unsplash.com/photos/random?query=bed&count=15`, {
 						headers: {
 							Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
 						},
-					}
-				);
+					}),
+				]);
+
+				if (!chairResponse.ok || !tableResponse.ok || !bedResponse.ok) {
+					const errorMessage = await chairResponse.text();
+					throw new Error(errorMessage);
+				}
 
 				const chairs = await chairResponse.json();
 				const tables = await tableResponse.json();
@@ -86,12 +88,19 @@ const ProductPage: React.FC = () => {
 		}));
 	};
 
+	const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+	const currentProducts = productData.slice(
+		startIndex,
+		startIndex + PRODUCTS_PER_PAGE
+	);
+	const totalPages = Math.ceil(productData.length / PRODUCTS_PER_PAGE);
+
 	return (
 		<div className={containerStyle}>
 			<h1 className={titleStyle}>Product Gallery</h1>
 			<div className={productContainer}>
-				{productData.length > 0 ? (
-					productData.map((product) => (
+				{currentProducts.length > 0 ? (
+					currentProducts.map((product) => (
 						<div key={product.id} className={productCardStyle}>
 							<ProductCarousel images={product.urls} />
 							<h2>{product.alt_description}</h2>
@@ -110,6 +119,11 @@ const ProductPage: React.FC = () => {
 					<Spinner size="3" />
 				)}
 			</div>
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				onPageChange={setCurrentPage}
+			/>
 		</div>
 	);
 };
