@@ -2,14 +2,14 @@ import { css } from "@emotion/css";
 
 // Color palette
 export const colors = {
-	primary: "#1e38b2",
-	secondary: "#fe5805",
-	background: "#eae6df",
-	text: "#333",
-	lightText: "#555",
-	border: "#ddd",
-	hoverBackground: "#f0f0f0",
-	buttonHover: "#005bb5",
+	primary: "#1e38b2", // Blue color
+	secondary: "#fe5805", // Orange color
+	background: "#f8f8f8", // Light background for a clean look
+	text: "#333", // Dark text for readability
+	lightText: "#777", // Lighter text for less important info
+	border: "#ddd", // Border color for separation
+	hoverBackground: "#f0f0f0", // Hover effect background
+	buttonHover: "#005bb5", // Button hover color
 };
 
 // General container styles
@@ -45,8 +45,9 @@ export const productCardStyle = css`
 	margin: 10px;
 	border: 1px solid ${colors.border};
 	padding: 15px;
-	border-radius: 5px;
+	border-radius: 10px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
 
 	@media (max-width: 1024px) {
 		flex: 1 1 calc(50% - 20px);
@@ -57,15 +58,8 @@ export const productCardStyle = css`
 	}
 `;
 
-export const productImageStyle = css`
-	width: 100%;
-	height: 200px;
-	object-fit: cover;
-	border-radius: 5px;
-`;
-
-export const productNameStyle = css`
-	font-size: 20px;
+export const productTitleStyle = css`
+	font-size: 18px;
 	font-weight: 600;
 	margin: 10px 0;
 	color: ${colors.primary};
@@ -74,13 +68,14 @@ export const productNameStyle = css`
 export const productDescriptionStyle = css`
 	font-size: 14px;
 	color: ${colors.lightText};
+	margin-bottom: 10px;
 `;
 
 // Button and interactive element styles
 export const buttonContainerStyle = css`
 	display: flex;
 	gap: 10px;
-	justify-content: flex-start;
+	justify-content: space-between;
 	margin-top: 15px;
 `;
 
@@ -107,20 +102,6 @@ export const buttonStyle = css`
 
 	&:focus {
 		outline: none;
-	}
-`;
-
-export const addToCartButtonStyle = css`
-	padding: 10px 20px;
-	background-color: ${colors.primary};
-	color: #fff;
-	border: none;
-	cursor: pointer;
-	border-radius: 5px;
-	transition: background-color 0.3s;
-
-	&:hover {
-		background-color: ${colors.buttonHover};
 	}
 `;
 
@@ -160,7 +141,13 @@ export const paginationContainer = css`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 20px;
+	position: fixed;
+	bottom: 20px; 
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0;
+	padding: 0 20px;
+	z-index: 10;
 `;
 
 export const paginationButton = css`
@@ -184,10 +171,7 @@ export const paginationIcon = css`
 	color: ${colors.primary};
 `;
 
-// Cart icon style
 export const cartIconStyle = css`
-	color: ${colors.secondary};
 	font-size: 24px;
-	margin: 0 10px;
-	cursor: pointer;
+	color: ${colors.primary};
 `;
