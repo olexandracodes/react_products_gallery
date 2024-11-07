@@ -4,9 +4,9 @@ import { css } from "@emotion/css";
 export const colors = {
 	primary: "#1e38b2", // Blue color
 	secondary: "#fe5805", // Orange color
-	background: "#f8f8f8", // Light background for a clean look
+	background: "#eae6df", // Light background for a clean look
 	text: "#333", // Dark text for readability
-	lightText: "#777", // Lighter text for less important info
+	lightText: "#555", // Lighter text for less important info
 	border: "#ddd", // Border color for separation
 	hoverBackground: "#f0f0f0", // Hover effect background
 	buttonHover: "#005bb5", // Button hover color
@@ -68,7 +68,7 @@ export const productTitleStyle = css`
 export const productDescriptionStyle = css`
 	font-size: 14px;
 	color: ${colors.lightText};
-	margin-bottom: 10px;
+	margin: 10px 0;
 `;
 
 // Button and interactive element styles
@@ -92,12 +92,10 @@ export const buttonStyle = css`
 
 	&:hover {
 		background-color: ${colors.buttonHover};
-		transform: translateY(-2px);
 	}
 
 	&:active {
 		background-color: ${colors.buttonHover};
-		transform: translateY(1px);
 	}
 
 	&:focus {
@@ -142,12 +140,12 @@ export const paginationContainer = css`
 	align-items: center;
 	justify-content: center;
 	position: fixed;
-	bottom: 20px; 
+	bottom: 20px;
 	left: 50%;
 	transform: translateX(-50%);
 	margin: 0;
 	padding: 0 20px;
-	z-index: 10;
+	z-index: 999;
 `;
 
 export const paginationButton = css`

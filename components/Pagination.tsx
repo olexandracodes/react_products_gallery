@@ -1,7 +1,6 @@
 import React from "react";
 import { IconButton } from "@radix-ui/themes";
 import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
-
 import {
 	paginationContainer,
 	paginationButton,

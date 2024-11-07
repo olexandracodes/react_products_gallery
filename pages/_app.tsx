@@ -9,7 +9,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 				html,
 				body {
 					margin: 0;
-					background-color: #f8f8f8;
+					background-color: #eae6df;
 				}
 			`}</style>
 			<Component {...pageProps} />
