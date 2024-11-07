@@ -99,7 +99,7 @@ const ProductPage: React.FC = () => {
 						<div key={product.id} className={productCardStyle}>
 							<ProductCarousel images={product.urls} />
 							<h2>{product.alt_description}</h2>
-							<Badge color="blue">In stock</Badge>
+							<Badge variant="soft" color="blue">In stock</Badge>
 							<p>
 								Explore a variety of furniture pieces perfect for modern design.
 							</p>
