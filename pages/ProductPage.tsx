@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Spinner, Button } from "@radix-ui/themes";
+import { Spinner, Button, Badge } from "@radix-ui/themes";
 import {
 	containerStyle,
 	headerStyle,
@@ -99,20 +99,18 @@ const ProductPage: React.FC = () => {
 						<div key={product.id} className={productCardStyle}>
 							<ProductCarousel images={product.urls} />
 							<h2>{product.alt_description}</h2>
+							<Badge color="blue">In stock</Badge>
 							<p>
 								Explore a variety of furniture pieces perfect for modern design.
 							</p>
+
 							<CustomDropdown
 								productId={product.id}
 								selectedOption={selectedOptions[product.id]}
 								onOptionChange={handleDropdownChange}
 							/>
 							<div className={buttonContainerStyle}>
-
-								
 								{addedProducts.has(product.id) ? (
-
-									
 									<Button
 										className={buttonStyle}
 										onClick={() => handleAddToCart(product.id)}
