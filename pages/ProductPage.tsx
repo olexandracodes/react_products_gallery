@@ -12,6 +12,8 @@ import ProductCarousel from "../components/ProductCarousel";
 import CustomDropdown from "../components/CustomDropdown";
 import Pagination from "../components/Pagination";
 import { FaShoppingCart } from "react-icons/fa";
+import Link from "next/link";
+import { fetchProductImages } from "../src/api/fetchProductImages";
 
 interface Product {
   id: string;
@@ -38,46 +40,10 @@ const ProductPage: React.FC = () => {
   const [addedProducts, setAddedProducts] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const loadProductImages = async () => {
       setLoading(true);
       try {
-        const [chairResponse, tableResponse, bedResponse] = await Promise.all([
-          fetch(`https://api.unsplash.com/photos/random?query=chair&count=15`, {
-            headers: {
-              Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
-            },
-          }),
-          fetch(`https://api.unsplash.com/photos/random?query=table&count=15`, {
-            headers: {
-              Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
-            },
-          }),
-          fetch(`https://api.unsplash.com/photos/random?query=bed&count=15`, {
-            headers: {
-              Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`,
-            },
-          }),
-        ]);
-
-        if (!chairResponse.ok || !tableResponse.ok || !bedResponse.ok) {
-          const errorMessage = await chairResponse.text();
-          throw new Error(errorMessage);
-        }
-
-        const chairs = await chairResponse.json();
-        const tables = await tableResponse.json();
-        const beds = await bedResponse.json();
-
-        const products = chairs.map((chair: any, index: number) => ({
-          id: `product-${index}`,
-          alt_description: chair.alt_description || "Furniture Product",
-          urls: [
-            chair.urls.small,
-            tables[index]?.urls.small || "",
-            beds[index]?.urls.small || "",
-          ],
-        }));
-
+        const products = await fetchProductImages();
         setProductData(products);
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -86,7 +52,8 @@ const ProductPage: React.FC = () => {
         setLoading(false);
       }
     };
-    fetchImages();
+    
+    loadProductImages();
   }, []);
 
   const handleDropdownChange = (value: string, productId: string) => {
@@ -138,13 +105,18 @@ const ProductPage: React.FC = () => {
                 selectedOption={selectedOptions[product.id]}
                 onOptionChange={handleDropdownChange}
               />
-              {addedProducts.has(product.id) ? (
-                <div>
+              <div>
+                {addedProducts.has(product.id) ? (
                   <Button onClick={() => handleAddToCart(product.id)}>+</Button>
-                </div>
-              ) : (
-                <Button onClick={() => handleAddToCart(product.id)}>Add to Cart</Button>
-              )}
+                ) : (
+                  <Button onClick={() => handleAddToCart(product.id)}>
+                    Add to Cart
+                  </Button>
+                )}
+              </div>
+			  <Link href={`/product/${product.alt_description}`}>
+                <Button>Details</Button>
+              </Link>
             </div>
           ))
         ) : (
