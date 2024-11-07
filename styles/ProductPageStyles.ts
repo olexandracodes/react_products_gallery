@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 
-const colors = {
+// Color palette
+export const colors = {
 	primary: "#1e38b2",
 	secondary: "#fe5805",
 	background: "#eae6df",
@@ -11,6 +12,7 @@ const colors = {
 	buttonHover: "#005bb5",
 };
 
+// General container styles
 export const containerStyle = css`
 	padding: 20px;
 	font-family: Arial, sans-serif;
@@ -31,6 +33,7 @@ export const titleStyle = css`
 	color: ${colors.primary};
 `;
 
+// Product card styles
 export const productContainer = css`
 	display: flex;
 	flex-wrap: wrap;
@@ -61,18 +64,6 @@ export const productImageStyle = css`
 	border-radius: 5px;
 `;
 
-export const carouselWrapperStyle = css`
-	max-width: 300px;
-	margin: 0 auto;
-`;
-
-export const imageStyle = css`
-	width: 100%;
-	height: 210px;
-	object-fit: cover;
-	border-radius: 5px;
-`;
-
 export const productNameStyle = css`
 	font-size: 20px;
 	font-weight: 600;
@@ -85,20 +76,37 @@ export const productDescriptionStyle = css`
 	color: ${colors.lightText};
 `;
 
-export const selectContainerStyle = css`
-	width: 120px;
+// Button and interactive element styles
+export const buttonContainerStyle = css`
 	display: flex;
-	justify-content: space-between;
-	margin: 10px 0;
+	gap: 10px;
+	justify-content: flex-start;
+	margin-top: 15px;
 `;
 
-export const selectItem = css`
-	padding: 10px;
-	color: ${colors.text};
+export const buttonStyle = css`
+	padding: 10px 20px;
+	background-color: ${colors.secondary};
+	color: #fff;
+	border: none;
 	cursor: pointer;
-	flex: 1;
+	border-radius: 5px;
+	transition: background-color 0.3s, transform 0.3s;
+	font-weight: 600;
+	font-size: 14px;
+
 	&:hover {
-		background-color: ${colors.hoverBackground};
+		background-color: ${colors.buttonHover};
+		transform: translateY(-2px);
+	}
+
+	&:active {
+		background-color: ${colors.buttonHover};
+		transform: translateY(1px);
+	}
+
+	&:focus {
+		outline: none;
 	}
 `;
 
@@ -116,6 +124,38 @@ export const addToCartButtonStyle = css`
 	}
 `;
 
+// Carousel styles
+export const carouselWrapperStyle = css`
+	max-width: 300px;
+	margin: 0 auto;
+`;
+
+export const imageStyle = css`
+	width: 100%;
+	height: 210px;
+	object-fit: cover;
+	border-radius: 5px;
+`;
+
+// Select and filter styles
+export const selectContainerStyle = css`
+	width: 120px;
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0;
+`;
+
+export const selectItem = css`
+	padding: 10px;
+	color: ${colors.text};
+	cursor: pointer;
+	flex: 1;
+	&:hover {
+		background-color: ${colors.hoverBackground};
+	}
+`;
+
+// Pagination styles
 export const paginationContainer = css`
 	display: flex;
 	align-items: center;
@@ -144,6 +184,7 @@ export const paginationIcon = css`
 	color: ${colors.primary};
 `;
 
+// Cart icon style
 export const cartIconStyle = css`
 	color: ${colors.secondary};
 	font-size: 24px;

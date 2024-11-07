@@ -7,6 +7,8 @@ import {
 	productContainer,
 	productCardStyle,
 	cartIconStyle,
+	buttonContainerStyle,
+	buttonStyle,
 } from "../styles/ProductPageStyles";
 import ProductCarousel from "../components/ProductCarousel";
 import CustomDropdown from "../components/CustomDropdown";
@@ -105,26 +107,38 @@ const ProductPage: React.FC = () => {
 								selectedOption={selectedOptions[product.id]}
 								onOptionChange={handleDropdownChange}
 							/>
-							<div>
+							<div className={buttonContainerStyle}>
+
+								
 								{addedProducts.has(product.id) ? (
-									<Button onClick={() => handleAddToCart(product.id)}>+</Button>
+
+									
+									<Button
+										className={buttonStyle}
+										onClick={() => handleAddToCart(product.id)}
+									>
+										+
+									</Button>
 								) : (
-									<Button onClick={() => handleAddToCart(product.id)}>
+									<Button
+										className={buttonStyle}
+										onClick={() => handleAddToCart(product.id)}
+									>
 										Add to Cart
 									</Button>
 								)}
+								<Link
+									href={{
+										pathname: `/product/${product.id}`,
+										query: {
+											name: product.alt_description,
+											images: JSON.stringify(product.urls),
+										},
+									}}
+								>
+									<Button className={buttonStyle}>Details</Button>
+								</Link>
 							</div>
-							<Link
-								href={{
-									pathname: `/product/${product.id}`,
-									query: {
-										name: product.alt_description,
-										images: JSON.stringify(product.urls),
-									},
-								}}
-							>
-								<Button>Details</Button>
-							</Link>
 						</div>
 					))
 				) : (
