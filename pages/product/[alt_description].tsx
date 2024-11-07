@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Spinner } from "@radix-ui/themes";
-import dynamic from "next/dynamic";
 
 interface Product {
 	alt_description: string;
@@ -10,21 +9,21 @@ interface Product {
 
 const ProductDetails = () => {
 	const router = useRouter();
-    const { alt_description, images } = router.query;
+	const { name, images } = router.query;
 	const [product, setProduct] = useState<Product | null>(null);
 	const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (router.isReady && images) {
-          const imageUrls = JSON.parse(images as string);
-          const productData: Product = {
-            alt_description: alt_description as string,
-            urls: imageUrls,
-          };
-          setProduct(productData);
-          setLoading(false);
-        }
-      }, [router.isReady, images, alt_description]);
+	useEffect(() => {
+		if (router.isReady && name && images) {
+			const imageUrls = JSON.parse(images as string);
+			const productData: Product = {
+				alt_description: name as string,
+				urls: imageUrls,
+			};
+			setProduct(productData);
+			setLoading(false);
+		}
+	}, [router.isReady, name, images]);
 
 	if (loading) return <Spinner size="3" />;
 
@@ -47,4 +46,4 @@ const ProductDetails = () => {
 	);
 };
 
-export default dynamic(() => Promise.resolve(ProductDetails), { ssr: false });
+export default ProductDetails;

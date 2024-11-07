@@ -117,7 +117,10 @@ const ProductPage: React.FC = () => {
 							<Link
 								href={{
 									pathname: `/product/${product.id}`,
-									query: { images: JSON.stringify(product.urls) },
+									query: {
+										name: product.alt_description,
+										images: JSON.stringify(product.urls),
+									},
 								}}
 							>
 								<Button>Details</Button>
